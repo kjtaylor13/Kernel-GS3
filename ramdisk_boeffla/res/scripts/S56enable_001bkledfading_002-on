@@ -1,0 +1,6 @@
+#!/system/bin/sh
+#LED fading
+#Notification LED fading (off=blink)
+#On
+
+echo "1" > /sys/class/sec/led/led_fade

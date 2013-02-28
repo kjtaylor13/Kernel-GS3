@@ -1,0 +1,21 @@
+#!/system/bin/sh
+#System Tweaks
+#Requires reboot!!! Tweak various system settings:
+#On (Boeffla tweaks, default)
+
+/sbin/busybox rm /data/boeffla-systweak-off
+/sbin/busybox rm /data/boeffla-systweak-peg
+/sbin/busybox rm /data/boeffla-systweak-smod
+
+# Display dialog window (default, so no special handling for init.d script required)
+
+rm /sdcard/boeffla_twk_dlg_helper
+
+am start -a android.intent.action.MAIN -e message "System tweaks changed, please reboot for settings to take effect." -e title "System Tweaks" -e okstyle "Ok" -n bo.boeffla.tweaks.dialog.helper/.BoefflaTweaksDialogActivity
+
+while [ ! -f /sdcard/boeffla_twk_dlg_helper ]
+do
+	/sbin/busybox sleep 1
+done
+
+rm /sdcard/boeffla_twk_dlg_helper

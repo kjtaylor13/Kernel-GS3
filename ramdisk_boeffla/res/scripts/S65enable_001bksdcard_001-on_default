@@ -1,0 +1,19 @@
+#!/system/bin/sh
+#SD-Card Tweaks
+#Requires reboot!!! Increase read ahead buffer:
+#On (default)
+
+/sbin/busybox rm /data/boeffla-sdcardtweak-off
+
+# Display dialog window (default, so no special handling for init.d script required)
+
+rm /sdcard/boeffla_twk_dlg_helper
+
+am start -a android.intent.action.MAIN -e message "SD-Card tweak changed, please reboot for settings to take effect." -e title "SD-Card Tweak" -e okstyle "Ok" -n bo.boeffla.tweaks.dialog.helper/.BoefflaTweaksDialogActivity
+
+while [ ! -f /sdcard/boeffla_twk_dlg_helper ]
+do
+	/sbin/busybox sleep 1
+done
+
+rm /sdcard/boeffla_twk_dlg_helper

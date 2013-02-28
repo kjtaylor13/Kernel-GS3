@@ -1,0 +1,25 @@
+#!/system/bin/sh
+#System Tweaks
+#Requires reboot!!! Tweak various system settings:
+#smod (speedmod tweaks)
+
+/sbin/busybox rm /data/boeffla-systweak-off
+/sbin/busybox rm /data/boeffla-systweak-peg
+echo "Configured by boeffla tweaks app" > /data/boeffla-systweak-smod
+
+# Display dialog window
+
+if [ ! -f /system/etc/init.d/S63enable_001bksystemtweak_005-smod ]; then
+
+	rm /sdcard/boeffla_twk_dlg_helper
+
+	am start -a android.intent.action.MAIN -e message "System tweaks changed, please reboot for settings to take effect." -e title "System Tweaks" -e okstyle "Ok" -n bo.boeffla.tweaks.dialog.helper/.BoefflaTweaksDialogActivity
+
+	while [ ! -f /sdcard/boeffla_twk_dlg_helper ]
+	do
+		/sbin/busybox sleep 1
+	done
+
+	rm /sdcard/boeffla_twk_dlg_helper
+
+fi

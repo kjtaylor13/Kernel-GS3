@@ -1,0 +1,52 @@
+From b24abfe5831e4677537f17556f5a571130b556a8 Mon Sep 17 00:00:00 2001
+From: andip71 <andreasp@gmx.de>
+Date: Tue, 5 Mar 2013 07:20:11 +0100
+Subject: [PATCH] neu
+
+---
+ tmp/init.rc |   18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/tmp/init.rc b/tmp/init.rc
+index f47f6c2..f209840 100755
+--- a/tmp/init.rc
++++ b/tmp/init.rc
+@@ -118,8 +118,8 @@ loglevel 3
+     chmod 0644 /dev/xt_qtaguid
+
+ # ko files for exfat
+-    insmod /lib/modules/exfat_core.ko
+-    insmod /lib/modules/exfat_fs.ko
++#    insmod /lib/modules/exfat_core.ko
++#    insmod /lib/modules/exfat_fs.ko
+
+ on fs
+ # mount mtd partitions
+@@ -766,13 +766,6 @@ service bootanim /system/bin/bootanimation
+     disabled
+     oneshot
+
+-service samsungani /system/bin/samsungani
+-    class main
+-    user graphics
+-    group graphics system
+-    disabled
+-    oneshot
+-
+ service dbus /system/bin/dbus-daemon --system --nofork
+     class main
+     socket dbus stream 660 bluetooth bluetooth
+@@ -886,3 +879,10 @@ on property:ro.dumpstate.dmesg=1
+ on property:init.svc.media=restarting
+     exec icd_check
+     start icd
++
++# Call Boeffla-Kernel init script
++service boeffla-init /sbin/boeffla-init.sh
++    class core
++    user root
++    oneshot
++
+--
+1.7.9.5
+

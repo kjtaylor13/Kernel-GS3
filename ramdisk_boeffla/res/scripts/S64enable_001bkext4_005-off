@@ -1,0 +1,23 @@
+#!/system/bin/sh
+#Ext4 Tweaks
+#Requires reboot!!! Optimized mounting of /data and /cache:
+#Off
+
+echo "Configured by boeffla tweaks app" > /data/boeffla-ext4tweak-off
+
+# Display dialog window
+
+if [ ! -f /system/etc/init.d/S64enable_001bkext4_005-off ]; then
+
+	rm /sdcard/boeffla_twk_dlg_helper
+
+	am start -a android.intent.action.MAIN -e message "Ext4 tweak changed, please reboot for settings to take effect." -e title "Ext4 Tweaks" -e okstyle "Ok" -n bo.boeffla.tweaks.dialog.helper/.BoefflaTweaksDialogActivity
+
+	while [ ! -f /sdcard/boeffla_twk_dlg_helper ]
+	do
+		/sbin/busybox sleep 1
+	done
+
+	rm /sdcard/boeffla_twk_dlg_helper
+
+fi

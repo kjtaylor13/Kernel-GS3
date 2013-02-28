@@ -1,0 +1,9 @@
+#!/system/bin/sh
+#exFat support
+#Load exFat drivers to support exFat formatted external SD cards:
+#On (default)
+
+/sbin/busybox rm /data/boeffla-exfat
+
+insmod /lib/modules/exfat_core.ko
+insmod /lib/modules/exfat_fs.ko
